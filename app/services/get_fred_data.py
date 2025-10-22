@@ -46,6 +46,8 @@ def get_series_db(series_id, start=None, end=None, session: Session = None):
         "name": series_meta.name,
         "frequency": series_meta.frequency,
         "units": series_meta.units,
+        "category": series_meta.category,
+        "citation": f"FRED, {series_meta.name}. Retrieved from https://fred.stlouisfed.org/series/{series_meta.series_id}",
         "count": len(observations),
         "series": observations
     }

@@ -10,6 +10,7 @@ class Series(Base):
     name = Column(String)
     frequency = Column(String)
     units = Column(String)
+    category = Column(String)
     updated_at = Column(Date)
 
     observations = relationship("Observation", back_populates="series")

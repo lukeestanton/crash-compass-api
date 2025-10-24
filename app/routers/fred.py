@@ -2,7 +2,7 @@
 from fastapi import APIRouter, HTTPException, Query, Depends
 from sqlalchemy.orm import Session
 from app.db.session import SessionLocal
-from app.services.get_fred_data import get_series_db
+from app.services.get_fred_data import get_series_db, get_categories_with_series
 
 router = APIRouter(prefix="/api/v1/fred", tags=["FRED"])
 
@@ -20,3 +20,17 @@ def series(series_id: str, start: str = None, end: str = None, db: Session = Dep
         return data
     except Exception as e:
         raise HTTPException(status_code = 500, detail = str(e))
+
+@router.get("/categories")
+def get_categories():
+    try:
+        return get_categories_with_series()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@router.get("/dial_score")
+def get_dial_score():
+    try:
+        return 35.8
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

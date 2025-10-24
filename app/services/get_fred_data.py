@@ -3,6 +3,7 @@ import os
 from fredapi import Fred
 from sqlalchemy.orm import Session
 from app.db.models import Series, Observation
+from app.lib.series_defs import SERIES_TO_LOAD
 
 def _client():
     api_key = os.environ.get("FRED_API_KEY")
@@ -51,3 +52,15 @@ def get_series_db(series_id, start=None, end=None, session: Session = None):
         "count": len(observations),
         "series": observations
     }
+
+def get_categories_with_series():
+    categories = {}
+    
+    for series_id, category in SERIES_TO_LOAD.items():
+        if category not in categories:
+            categories[category] = {
+                "series": [],
+                "outlook_score": 50  # Placeholder score for now
+            }
+        categories[category]["series"].append(series_id)
+    return categories

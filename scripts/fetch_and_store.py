@@ -6,6 +6,7 @@ from fredapi import Fred
 
 from app.db.session import SessionLocal
 from app.db.models import Series, Observation
+from app.lib.series_defs import SERIES_TO_LOAD
 
 load_dotenv()
 fred = Fred(api_key=os.environ["FRED_API_KEY"])
@@ -37,40 +38,6 @@ def store_series(series_id, category):
     session.commit()
     print(f"Stored {series_id}: {len(data)} rows")
 
-
-SERIES_TO_LOAD = {
-    # Labor Market
-    "UNRATE": "Labor Market",
-    "PAYEMS": "Labor Market",
-    "AHETPI": "Labor Market",
-    "IC4WSA": "Labor Market",
-    
-    # Consumers
-    "PCE": "Consumers",
-    "DSPIC96": "Consumers",
-    "CPIAUCSL": "Consumers",
-    "CPILFESL": "Consumers",
-    "CSCICP03USM665S": "Consumers",
-    
-    # Financial Conditions
-    "FEDFUNDS": "Financial Conditions",
-    "GS10": "Financial Conditions",
-    "T10Y2Y": "Financial Conditions",
-    "DGS10": "Financial Conditions",
-    "GS1": "Financial Conditions",
-    "AAA10Y": "Financial Conditions",
-    "M2REAL": "Financial Conditions",
-    "WM2NS": "Financial Conditions",
-    
-    # Production
-    "INDPRO": "Production",
-    "IPMAN": "Production",
-    "WPSFD49207": "Production",
-    
-    # Housing
-    "HOUST": "Housing",
-    "PERMIT": "Housing"
-}
 
 for series_id, category in SERIES_TO_LOAD.items():
     try:

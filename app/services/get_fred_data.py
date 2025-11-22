@@ -1,4 +1,3 @@
-# app/services/get_fred_data.py
 import os
 from fredapi import Fred
 from sqlalchemy.orm import Session
@@ -24,12 +23,10 @@ def get_series_db(series_id, start=None, end=None, session: Session = None):
     if session is None:
         raise ValueError("DB session required to use stored FRED data")
 
-    # Fetch metadata
     series_meta = session.query(Series).filter(Series.series_id == series_id).first()
     if not series_meta:
         raise ValueError(f"Series '{series_id}' not found in database")
 
-    # Fetch observations
     query = session.query(Observation).filter(Observation.series_id == series_id)
     if start:
         query = query.filter(Observation.date >= start)
@@ -60,7 +57,7 @@ def get_categories_with_series():
         if category not in categories:
             categories[category] = {
                 "series": [],
-                "outlook_score": 50  # Placeholder score for now
+                "outlook_score": 50
             }
         categories[category]["series"].append(series_id)
     return categories

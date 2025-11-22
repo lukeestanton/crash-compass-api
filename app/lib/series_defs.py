@@ -1,6 +1,4 @@
-# app/lib/series_defs.py
 SERIES_TO_LOAD = {
-    # To be used for ML
     "UNRATE": "Labor Market",
     "PAYEMS": "Labor Market",
     "AHETPI": "Labor Market",
@@ -26,8 +24,8 @@ SERIES_TO_LOAD = {
     "WPSFD49207": "Production",
     
     "HOUST": "Housing",
-    "PERMIT": "Housing"
+    "PERMIT": "Housing",
 
-    # Other
+    "USREC": "Recession"
 
 }

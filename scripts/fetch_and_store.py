@@ -1,4 +1,3 @@
-# scripts/fetch_and_store
 import os
 from datetime import date
 from dotenv import load_dotenv
@@ -13,7 +12,6 @@ fred = Fred(api_key=os.environ["FRED_API_KEY"])
 session = SessionLocal()
 
 def store_series(series_id, category):
-    # Fetch metadata
     info = fred.get_series_info(series_id)
     series = Series(
         series_id=series_id,
@@ -25,10 +23,8 @@ def store_series(series_id, category):
     )
     session.merge(series)
 
-    # Remove old observations for this series
     session.query(Observation).filter_by(series_id=series_id).delete()
 
-    # Fetch data
     data = fred.get_series(series_id)
     for d, v in data.items():
         if v is not None:
